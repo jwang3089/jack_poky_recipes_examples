@@ -1,0 +1,188 @@
+
+1) First create meta directories
+mkdir:
+
+meta-depend-jack:
+conf  recipes-depend-jack
+
+meta-IMAGE_CMD-jack:
+classes  conf  recipes-image_cmd_jack
+
+meta-jack:
+classes  conf  inc  recipes-jack
+
+meta-packagegroup-jackwang-app-recipe1:
+conf  recipes-jackwang-app-recipe1  recipes-jackwang-app-recipe2
+
+meta-packagegroup-jackwang-app-recipe2:
+conf  recipes-jackwang-app-recipe3  recipes-jackwang-app-recipe4
+
+meta-packagegroup-jackwang-apps:
+conf  recipes-jackwang-apps
+
+meta-packagegroup-jackwang-apps-recipes:
+conf  recipes-jackwang-apps-recipes
+   
+
+
+2) add all meta directories to bblayers.conf
+# POKY_BBLAYERS_CONF_VERSION is increased each time build/conf/bblayers.conf
+# changes incompatibly
+POKY_BBLAYERS_CONF_VERSION = "2"
+
+BBPATH = "${TOPDIR}"
+BBFILES ?= ""
+
+BBLAYERS ?= " \
+  /media/jackbwang/MISC/YOCTO/poky/meta \
+  /media/jackbwang/MISC/YOCTO/poky/meta-poky \
+  /media/jackbwang/MISC/YOCTO/poky/meta-yocto-bsp \
+  /media/jackbwang/MISC/YOCTO/poky/meta-jack \
+  /media/jackbwang/MISC/YOCTO/poky/meta-depend-jack \
+  /media/jackbwang/MISC/YOCTO/poky/meta-IMAGE_CMD-jack \
+  /media/jackbwang/MISC/YOCTO/poky/meta-packagegroup-jackwang-apps \
+  /media/jackbwang/MISC/YOCTO/poky/meta-packagegroup-jackwang-apps-recipes \
+  /media/jackbwang/MISC/YOCTO/poky/meta-packagegroup-jackwang-app-recipe1 \
+  /media/jackbwang/MISC/YOCTO/poky/meta-packagegroup-jackwang-app-recipe2 \
+  "
+
+3) To run your recipe from the 
+## local.conf
+IMAGE_INSTALL_append += "jack1"
+IMAGE_INSTALL_append += "jack2"
+
+
+4) To run your recipe from bbapend: core-image-minimal.bbappend
+# meta-packagegroup-jackwang-apps/recipes-jackwang-apps/packagegroup-compile-multiple-recipes/core-image-minimal.bbappend
+IMAGE_INSTALL_append = " packagegroup-jackwang-apps "
+
+##
+## ./meta-packagegroup-jackwang-apps-recipes/recipes-jackwang-apps-recipes/jackwang-apps-recipes/packagegroup-jackwang-apps.bb
+
+SUMMARY = "Jack Wang Apps"
+LICENSE = "MIT"
+LIC_FILES_CHKSUM = "file://${COREBASE}/meta/COPYING.MIT;md5=3da9cfbcb788c80a0384361b4de20420"
+
+PACKAGE_ARCH = "${MACHINE_ARCH}"
+
+inherit packagegroup
+
+PACKAGES = "${PN}"
+
+# ./meta-packagegroup-jackwang-app-recipe1/recipes-jackwang-app-recipe1/jackwang-app-recipe1/jackwang-app-recipe1.bb
+# ./meta-packagegroup-jackwang-app-recipe1/recipes-jackwang-app-recipe2/jackwang-app-recipe2/jackwang-app-recipe2.bb
+# ./meta-packagegroup-jackwang-app-recipe2/recipes-jackwang-app-recipe3/jackwang-app-recipe3/jackwang-app-recipe3.bb
+# ./meta-packagegroup-jackwang-app-recipe2/recipes-jackwang-app-recipe4/jackwang-app-recipe4/jackwang-app-recipe4.bb
+
+RDEPENDS_${PN} = " \
+        jackwang-app-recipe1 \
+        jackwang-app-recipe2 \
+        jackwang-app-recipe3 \
+        jackwang-app-recipe4 \
+"
+
+5) To run using IMAGE_CMD and IMAGE_FSTYPES
+
+## meta-IMAGE_CMD-jack/recipes-image_cmd_jack/image_cmd/core-image-minimal.bbappend
+## inherit jack_image_types.bbclass under meta-IMAGE_CMD-jack/classes
+## IMAGE_FSTYPES_append = " jackwang (IMAGE_CMD_jackwang); jacknext_4 (IMAGE_CMD_jacknext_4 it will IMAGE_TYPEDEP_jacknext_4= "jacknext_3" first and so on"
+inherit jack_image_types
+IMAGE_FSTYPES_append = " jackwang jacknext_4 "
+
+
+## meta-IMAGE_CMD-jack/classes/jack_image_types.bbclass
+do_image_jackwang[dirs] = "${TOPDIR}"
+do_image_jackwang[umask] = "022"
+#do_image_jackwang[depends] += " bc-native:do_populate_sysroot bison-native:do_populate_sysroot "
+#do_image_jackwang[lockfiles] += "${OSTREE_REPO}/ostree.lock"
+IMAGE_CMD_jackwang () {
+        echo "IMAGE_CMD_jackwang ()" > LOG1
+        echo "poky/meta-IMAGE_CMD-jack/recipes-image_cmd_jack/image_cmd/core-image-minimal.bbappend " >> LOG1
+        echo "inherit jack_image_type" >> LOG1
+        echo "IMAGE_FSTYPES_append = \" jackwang jacknext_4 "\" >> LOG1
+        echo "poky/meta-IMAGE_CMD-jack/classes/jack_image_types.bbclass " >> LOG1
+}
+
+do_image_jackwang_0[depends] += " bc-native:do_populate_sysroot bison-native:do_populate_sysroot "
+#do_image_jackwang_0[lockfiles] += "${OSTREE_REPO}/ostree.lock"
+do_image_jackwang_0[lockfiles] += "${WORKDIR}/jack_ostree.lock"
+IMAGE_CMD_jackwang_0 () {
+        echo "poky/meta-IMAGE_CMD-jack/classes/jack_image_types.bbclass " > LOG2
+        echo "Hey IMAGE_CMD_jackwang_0" >> LOG2
+}
+
+IMAGE_TYPEDEP_jacknext_1= "jackwang_0"
+IMAGE_CMD_jacknext_1 () {
+        echo "Hey IMAGE_CMD_jacknext_1" >> LOG2
+}
+
+IMAGE_TYPEDEP_jacknext_2= "jacknext_1"
+IMAGE_CMD_jacknext_2 () {
+        echo "Hey IMAGE_CMD_jacknext_2" >> LOG2
+}
+
+IMAGE_TYPEDEP_jacknext_3= "jacknext_2"
+IMAGE_CMD_jacknext_3 () {
+        echo "Hey IMAGE_CMD_jacknext_3" >> LOG2
+}
+
+IMAGE_TYPEDEP_jacknext_4= "jacknext_3"
+IMAGE_CMD_jacknext_4 () {
+        echo "Hey IMAGE_CMD_jacknext_4" >> LOG2
+}
+
+
+
+TASKS:
+
+Tasks
+• do_fetch()
+• do_unpack()
+• do_patch()
+• do_configure()
+• do_compile()
+• do_install()
+• do_package()
+• do_populate_sysroot()
+
+
+DEPENDS  -> Build Time Dependency
+RDEPENDS -> Run Time Dependency
+DEPENDS: When a recipe 'A' is DEPENDS on recipe 'B'. In this case, Bitbake first builds recipe 'B' and then recipe 'A'
+RDEPENDS: When a recipe 'A' is RDEPENDS on recipe 'B'. In this case, Bitbake deploys 'B' on the target system when it deploys 'A'.
+
+DEPENDS
+    Specifies build-time dependencies, via a list of bitbake recipes to build prior to build the recipe. These are programs (flex-native) or libraries (libpcre) 
+    that are required in order to build the package.
+RDEPENDS
+    Specifies run-time dependencies, via a list of packages to install prior to installing the current package. These are programs or libraries that are required in order to run the program. 
+    Note that libraries which are dynamically linked to an application will be automatically detected and added to RDEPENDS and therefore do not need to be explicitly declared. 
+    If a library was dynamically loaded then it would need to be explicitly listed.
+
+
+
+
+### To checkinto my own branch
+### email: jwang4024@yahoo.com
+### ArubaXXXX:
+
+
+Quick setup — if you’ve done this kind of thing before
+or
+
+Get started by creating a new file or uploading an existing file. We recommend every repository include a README, LICENSE, and .gitignore.
+…or create a new repository on the command line
+
+echo "# poky_jack_recipes_examples" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/jwang3089/poky_jack_recipes_examples.git
+git push -u origin main
+
+…or push an existing repository from the command line
+
+git remote add origin https://github.com/jwang3089/poky_jack_recipes_examples.git
+git branch -M main
+git push -u origin main

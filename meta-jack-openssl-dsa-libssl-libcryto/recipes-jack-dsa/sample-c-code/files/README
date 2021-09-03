@@ -1,0 +1,39 @@
+To run the dsa application we need the following libraries pre installed
+1) Install libmbedtls
+	sudo apt-get install libmbedtls-dev
+
+2) Install libjson-c
+	sudo apt-get install libjson-c-dev
+
+3) Link libmbedcrypto.so.1 to libmbedcrypto.so.0
+   Example:
+	sudo ln -s /usr/lib/x86_64-linux-gnu/libmbedcrypto.so.1 /usr/lib/x86_64-linux-gnu/libmbedcrypto.so.0
+
+4) Link libjson-c.so to libjson-c.so.2
+   Example:
+	sudo ln -s /usr/lib/x86_64-linux-gnu/libjson-c.so /usr/lib/x86_64-linux-gnu/libjson-c.so.2
+
+5) Copy seclib_data.json file to /etc/lucid/
+	cp seclib_data.json /etc/lucid/.
+
+6) Copy dsa_util to your prefered location.
+
+7) Change file permissions on dsa_util
+	chmod +x dsa_util
+
+8) Run dsa_util help:
+	$ ./dsa_util -h
+	Usage: ./dsa_util [-e <ecu_id>] [-l <security level>] [-s <seed>]
+	-h: display this information.
+	-e: Ecu Id to use.
+	-l: Security level.(1, 3, 7)
+	-s: Seed
+
+9) Run dsa_util.
+   Example:
+	$ ./dsa_util -e 9 -l 1 -s 1234567890abcdef
+	key level 1
+	Encrypt data is: ac24f9bad9cfd38326ae972d65dc8ee
+
+
+
