@@ -1,1 +1,7 @@
+## https://github.com/settings/apps 
+## https://github.com/settings/tokens
 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
+
+git push https://<GITHUB_ACCESS_TOKEN>@github.com/<GITHUB_USERNAME>/<REPOSITORY_NAME>.git
+
+git push https://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@github.com/jwang3089/poky_jack_recipes_examples.git
