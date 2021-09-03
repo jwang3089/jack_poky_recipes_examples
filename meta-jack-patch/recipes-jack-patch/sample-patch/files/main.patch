@@ -1,6 +1,8 @@
---- main.c	2021-09-03 08:27:23.764652413 -0700
-+++ main1.c	2021-09-03 08:29:34.341309571 -0700
-@@ -6,5 +6,7 @@
+diff --git a/meta-jack-patch/recipes-jack-patch/sample-patch/files/main.c b/meta-jack-patch/recipes-jack-patch/sample-patch/files/main.c
+index 036f089..88b3c53 100644
+--- a/meta-jack-patch/recipes-jack-patch/sample-patch/files/main.c
++++ b/meta-jack-patch/recipes-jack-patch/sample-patch/files/main.c
+@@ -6,5 +6,7 @@ int main()
      printf("while (1) JACK!!!!!! Hello World!!\n");
      printf("return (0) \n");
  
