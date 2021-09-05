@@ -170,19 +170,29 @@ RDEPENDS
 Quick setup — if you’ve done this kind of thing before
 or
 
-Get started by creating a new file or uploading an existing file. We recommend every repository include a README, LICENSE, and .gitignore.
-…or create a new repository on the command line
+jwang3089 github:
 
-echo "# poky_jack_recipes_examples" >> README.md
-git init
-git add README.md
-git commit -m "first commit"
-git branch -M main
-git remote add origin https://github.com/jwang3089/poky_jack_recipes_examples.git
-git push -u origin main
+->https://github.com/jwang3089
+->https://github.com/jwang3089?tab=repositories
+-> New
+-> Owner/Repository name
+-> jwang3089/poky_jack_recipes_examples
+-> ?: Public/Private
 
-…or push an existing repository from the command line
+## to clone it
+> git clone git@github.com:jwang3089/poky_jack_recipes_examples.git
+####      0442:def list2cmdline(seq):
+#### Exception: subprocess.CalledProcessError: Command 'cd /media/jackbwang/SAMPLE/YOCTO/poky/build/tmp/work/qemux86_64-poky-linux/linux-yocto/5.4.135-r0/deploy-rpms; find . -type d -print | tar --xattrs --xattrs-include='*' -cf - -S -C /media/jackbwang/SAMPLE/YOCTO/poky/build/tmp/work/qemux86_64-poky-linux/linux-yocto/5.4.135-r0/deploy-rpms -p --no-recursion --files-from - | tar --xattrs --xattrs-include='*' -xhf - -C /media/jackbwang/SAMPLE/YOCTO/poky/build/tmp/deploy/rpm' returned non-zero exit status 2.
 
-git remote add origin https://github.com/jwang3089/poky_jack_recipes_examples.git
-git branch -M main
-git push -u origin main
+#### Subprocess output:
+#### tar: ./qemux86_64: Cannot change ownership to uid 0, gid 0: Operation not permitted
+#### tar: .: Cannot change ownership to uid 0, gid 0: Operation not permitted
+#### tar: Exiting with failure status due to previous errors
+
+#### ERROR: Logfile of failure stored in: /media/jackbwang/SAMPLE/YOCTO/poky/build/tmp/work/qemux86_64-poky-linux/linux-yocto/5.4.135-r0/temp/log.do_package_write_rpm.20758
+#### ERROR: Task (/media/jackbwang/SAMPLE/YOCTO/poky/meta/recipes-kernel/linux/linux-yocto_5.4.bb:do_package_write_rpm) failed with exit code '1'
+> cd build/tmp/work/qemux86_64-poky-linux/linux-yocto/5.4.135-r0/deploy-rpms
+> chmod -R 777 *
+
+
+
