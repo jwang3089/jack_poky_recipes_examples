@@ -84,6 +84,7 @@ do_deploy_append() {
     echo "recipes-kernel/linux/linux-yocto.inc: B = \"${WORKDIR}/linux-${PACKAGE_ARCH}-${LINUX_KERNEL_TYPE}-build" >> LOG2
     echo "B=${B}: ${WORKDIR}/linux-${PACKAGE_ARCH}-${LINUX_KERNEL_TYPE}-build " >> LOG2
     echo "LINUX_KERNEL_TYPE= ${LINUX_KERNEL_TYPE}" >> LOG1
+    echo "iLINUX_KERNEL_TYPE= ${LINUX_KERNEL_TYPE}: poky/meta/recipes-kernel/linux/linux-yocto/kernel-meta/ktypes/standard"
     echo "make -f Makefile" >> LOG1
     echo "CONFIGURATIONS: poky/meta/conf/bitbake.conf" >> LOG1
     echo "STAGING_DIR = ${STAGING_DIR}" >> LOG1
