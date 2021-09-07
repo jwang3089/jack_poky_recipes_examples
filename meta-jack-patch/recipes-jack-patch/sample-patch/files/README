@@ -1,10 +1,4 @@
 
->> use git apply ${S}/MAIN.PATCH
-
-do_configure_append() {
-    git apply ${S}/MAIN.PATCH
-}
-main.c and main1.c
 
 diff -uNr main.c main1.c > MAIN.PATCH
 
@@ -49,10 +43,10 @@ git diff main.c > MAIN.PATCH
 
 FROM: 
 
-diff --git a/meta-jack-patch/recipes-jack-patch/sample-patch/files/main.c b/meta-jack-patch/recipes-jack-patch/sample-patch/files/main.c
+diff --git a/main.c b/main.c
 index 036f089..4cec9ee 100644
---- a/meta-jack-patch/recipes-jack-patch/sample-patch/files/main.c
-+++ b/meta-jack-patch/recipes-jack-patch/sample-patch/files/main.c
+--- a/main.c
++++ b/main.c
 @@ -5,6 +5,11 @@ int main()
  {
      printf("while (1) JACK!!!!!! Hello World!!\n");
@@ -69,7 +63,7 @@ index 036f089..4cec9ee 100644
 
 TO:
 
-diff --git a/meta-jack-patch/recipes-jack-patch/sample-patch/files/main.c b/meta-jack-patch/recipes-jack-patch/sample-patch/files/main.c
+diff --git a/main.c b/main.c
 index 036f089..4cec9ee 100644
 --- main.c
 +++ main.c
