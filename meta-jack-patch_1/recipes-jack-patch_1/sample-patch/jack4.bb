@@ -28,8 +28,6 @@ S = "${WORKDIR}"
 
 SRC_URI ="file://main.c \
 	  file://Makefile \
-	  file://MAIN.patch \
-	  file://* \
           "
 
 # 0) 
@@ -142,7 +140,7 @@ do_install_append () {
 # 2) Copy a files into /jack/user/bin/ ROOTFS
 #    install -m 0755 ${S}/hello-world ${D}${bindir}
 #    install -m 0755 ${S}/hello-world ${D}/home/
-    install -m 0755 ${S}/main_patch  ${D}${bindir}
+    install -m 0755 ${S}/main_patch_1  ${D}${bindir}
 
 }
 
