@@ -28,6 +28,7 @@ S = "${WORKDIR}"
 
 SRC_URI ="file://main.c \
 	  file://Makefile \
+	  file://MAIN.PATCH \
 	  file://* \
           "
 
@@ -111,10 +112,9 @@ do_configure_append() {
 
     echo "env:" >> LOG1
     echo "$(env)" >> LOG1
-    echo "printenv:" >> LOG1
-    echo "$(printenv)" >> LOG1
     echo "export:" >> LOG1
     echo "$(export)" >> LOG1
+    git apply ${S}/MAIN.PATCH
 }
 
 do_compile_append() {

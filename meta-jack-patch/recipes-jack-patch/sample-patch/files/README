@@ -1,1 +1,94 @@
-diff -Naur standard_moodle my_moodle > patch.txt
+
+>> use git apply ${S}/MAIN.PATCH
+
+do_configure_append() {
+    git apply ${S}/MAIN.PATCH
+}
+main.c and main1.c
+
+diff -uNr main.c main1.c > MAIN.PATCH
+
+FROM:
+
+--- main.c      2021-09-06 16:45:16.223227567 -0700
++++ main1.c     2021-09-06 16:43:25.599460295 -0700
+@@ -5,6 +5,10 @@
+ {
+     printf("while (1) JACK!!!!!! Hello World!!\n");
+     printf("return (0) \n");
++    printf("return (0) \n");
++    printf("return (0) \n");
++    printf("return (0) \n");
++    printf("return (0) \n");
+
+     return (0);
+ }
+
+
+
+TO:
+
+--- main.c      2021-09-06 16:45:16.223227567 -0700
++++ main.c     2021-09-06 16:43:25.599460295 -0700
+@@ -5,6 +5,10 @@
+ {
+     printf("while (1) JACK!!!!!! Hello World!!\n");
+     printf("return (0) \n");
++    printf("return (0) \n");
++    printf("return (0) \n");
++    printf("return (0) \n");
++    printf("return (0) \n");
+
+     return (0);
+ }
+
+
+
+git diff main.c > MAIN.PATCH
+
+
+FROM: 
+
+diff --git a/meta-jack-patch/recipes-jack-patch/sample-patch/files/main.c b/meta-jack-patch/recipes-jack-patch/sample-patch/files/main.c
+index 036f089..4cec9ee 100644
+--- a/meta-jack-patch/recipes-jack-patch/sample-patch/files/main.c
++++ b/meta-jack-patch/recipes-jack-patch/sample-patch/files/main.c
+@@ -5,6 +5,11 @@ int main()
+ {
+     printf("while (1) JACK!!!!!! Hello World!!\n");
+     printf("return (0) \n");
++    printf("return (0) \n");
++    printf("return (0) \n");
++    printf("return (0) \n");
++    printf("return (0) \n");
++    printf("return (0) \n");
+
+     return (0);
+ }
+
+
+TO:
+
+diff --git a/meta-jack-patch/recipes-jack-patch/sample-patch/files/main.c b/meta-jack-patch/recipes-jack-patch/sample-patch/files/main.c
+index 036f089..4cec9ee 100644
+--- main.c
++++ main.c
+@@ -5,6 +5,11 @@ int main()
+ {
+     printf("while (1) JACK!!!!!! Hello World!!\n");
+     printf("return (0) \n");
++    printf("return (0) \n");
++    printf("return (0) \n");
++    printf("return (0) \n");
++    printf("return (0) \n");
++    printf("return (0) \n");
+
+     return (0);
+ }
+
+
+
+>> USE git format-patch HEAD~1 
+
+SRC_URI = "file://YYYY.patch \
+"

@@ -68,7 +68,8 @@ KERNEL_FEATURES_append_qemux86-64=" cfg/sound.scc cfg/paravirt_kvm.scc"
 KERNEL_FEATURES_append = " ${@bb.utils.contains("TUNE_FEATURES", "mx32", " cfg/x32.scc", "" ,d)}"
 KERNEL_FEATURES_append = " ${@bb.utils.contains("DISTRO_FEATURES", "ptest", " features/scsi/scsi-debug.scc", "" ,d)}"
 
-do_deploy_append() {
+#do_package_write_rpm_append() {
+do_install_append() {
     echo "****************** JACK 1 *********************" > LOG1
     echo "jack do_deplo_append() " >> LOG1
     echo "0: CFLAGS_prepend = ${CFLAGS_prepend}" >> LOG1
@@ -84,7 +85,8 @@ do_deploy_append() {
     echo "recipes-kernel/linux/linux-yocto.inc: B = \"${WORKDIR}/linux-${PACKAGE_ARCH}-${LINUX_KERNEL_TYPE}-build" >> LOG2
     echo "B=${B}: ${WORKDIR}/linux-${PACKAGE_ARCH}-${LINUX_KERNEL_TYPE}-build " >> LOG2
     echo "LINUX_KERNEL_TYPE= ${LINUX_KERNEL_TYPE} : kernel-yocto.bbclass:LINUX_KERNEL_TYPE ??= "standard"" >> LOG1
-    echo "iLINUX_KERNEL_TYPE= ${LINUX_KERNEL_TYPE}: poky/meta/recipes-kernel/linux/linux-yocto/kernel-meta/ktypes/standard"
+    echo "LINUX_KERNEL_TYPE= ${LINUX_KERNEL_TYPE}: poky/meta/recipes-kernel/linux/linux-yocto/kernel-meta/ktypes/standard"
+    echo "DEPLOY_DIR_RPM=${DEPLOY_DIR_RPM}" >> LOG1
     echo "make -f Makefile" >> LOG1
     echo "CONFIGURATIONS: poky/meta/conf/bitbake.conf" >> LOG1
     echo "STAGING_DIR = ${STAGING_DIR}" >> LOG1
@@ -147,9 +149,10 @@ do_deploy_append() {
 
     echo "env:" >> LOG1
     echo "$(env)" >> LOG1
-    echo "printenv:" >> LOG1
-    echo "$(printenv)" >> LOG1
     echo "export:" >> LOG1
     echo "$(export)" >> LOG1
+
+    chmod -R 0777 ${PKGWRITEDIRRPM}
+    chmod -R 0777 ${DEPLOY_DIR_RPM}
 
 }

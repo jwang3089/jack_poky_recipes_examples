@@ -1,16 +1,15 @@
 diff --git a/meta-jack-patch/recipes-jack-patch/sample-patch/files/main.c b/meta-jack-patch/recipes-jack-patch/sample-patch/files/main.c
-index 88b3c53..653538a 100644
+index 036f089..81952c6 100644
 --- a/meta-jack-patch/recipes-jack-patch/sample-patch/files/main.c
 +++ b/meta-jack-patch/recipes-jack-patch/sample-patch/files/main.c
-@@ -7,6 +7,11 @@ int main()
+@@ -5,6 +5,10 @@ int main()
+ {
+     printf("while (1) JACK!!!!!! Hello World!!\n");
      printf("return (0) \n");
- 
-     printf(" This is added line\n");
-+    // Thi is added patched
-+    //
-+    //
-+    //
-+    //
++    printf("return (0) \n");
++    printf("return (0) \n");
++    printf("return (0) \n");
++    printf("return (0) \n");
  
      return (0);
  }
