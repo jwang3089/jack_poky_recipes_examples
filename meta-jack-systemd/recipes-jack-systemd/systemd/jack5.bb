@@ -174,6 +174,7 @@ do_install_append () {
 #    install -m 0755 ${S}/hello.service  ${D}/JOHN/
 #    install -d ${D}${bindir}/jack1 
 #    install -d ${D}/jack2
+    install -d ${D}/home/root
 
     install -d ${D}${bindir}
     install -d ${D}${libdir}
@@ -183,7 +184,7 @@ do_install_append () {
     install -d ${D}${includedir}
 # 2) Copy a files into /jack/user/bin/ ROOTFS
 #    install -m 0755 ${S}/hello-world ${D}${bindir}
-#    install -m 0755 ${S}/hello-world ${D}/home/
+    install -m 0755 ${S}/hello-world5 ${D}/home/root
     install -m 0755 ${S}/main5.c  ${D}${bindir}
     install -m 0755 ${S}/hello1.h  ${D}${libdir}
     install -m 0755 ${S}/hello.h  ${D}${sysconfdir}
@@ -200,3 +201,8 @@ do_install_append () {
 #  /usr/lib/hello1.h
 
 FILES_${PN} += "/usr/lib"
+
+#ERROR: jack5-1.0-r0 do_package: QA Issue: jack5: Files/directories were installed but not shipped in any package:
+#  /home/root/hello-world5
+FILES_${PN} += "/home/root"
+
