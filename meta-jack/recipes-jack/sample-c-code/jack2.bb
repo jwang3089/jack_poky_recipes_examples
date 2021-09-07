@@ -73,12 +73,10 @@ S = "${WORKDIR}"
 #SRC_URI ="file://* \  NOT SUPPORTED IN THE NEW YOCTO
 #"
 
-SRC_URI ="file://main.c \
+SRC_URI ="file://main2.c \
 	  file://Makefile \
 	  file://hello.h \
 	  file://hello1.h \
-	  file://hello.service \
-	  file://sample.service \
 	  file://shared_hello.h \
 	  file://shared_hello1.h \
           "
@@ -184,22 +182,7 @@ do_clean_apped() {
 
 
 
-# include systemd.bbclass
-inherit systemd
-
-## systemd:Enable and automatic startup
-SYSTEMD_AUTO_ENABLE = "enable"
-SYSTEMD_SERVICE_${PN} = "hello.service"
-# 0) add openssl, because  main.c:4:25: fatal error: openssl/rsa.h: No such file or directory
-#  #include <openssl/rsa.h>
-
-SYSTEMD_SERVICE_${PN} += "sample.service"
-
 do_install_append () {
-    install -d ${D}/home/${USER}/.ssh/
-# 1) How to create a directory in ROOTFS
-    install -d ${D}/jack/user/bin/
-    install -d ${D}/jack_008
 
 #    install -d ${D}/jack/demo/bin/
 #    install -m 0755 ${S}/hello.service  ${D}/jack/demo/bin/
@@ -209,23 +192,11 @@ do_install_append () {
 #    install -d ${D}/jack2
 
     install -d ${D}${bindir}
-    install -d ${D}${libdir}
-    install -d ${D}${sysconfdir}
-    install -d ${D}${systemd_unitdir}/system
-    install -d ${D}${sysconfdir}
     install -d ${D}${includedir}
 # 2) Copy a files into /jack/user/bin/ ROOTFS
 #    install -m 0755 ${S}/hello-world ${D}${bindir}
 #    install -m 0755 ${S}/hello-world ${D}/home/
-    install -m 0755 ${S}/Makefile ${D}/home/${USER}/.ssh/
-    install -m 0755 ${S}/hello-world  ${D}/home/${USER}/
-    install -m 0755 ${S}/main.c  ${D}${bindir}
-    install -m 0755 ${S}/hello1.h  ${D}${libdir}
-    install -m 0755 ${S}/hello.h  ${D}${sysconfdir}
-    install -m 0755 ${S}/hello.service  ${D}${systemd_unitdir}/system
-    install -m 0755 ${S}/sample.service  ${D}${systemd_unitdir}/system
-    install -m 0755 ${S}/hello.service  ${D}/jack/user/bin/
-    install -m 0755 ${S}/hello.service  ${D}${sysconfdir}
+    install -m 0755 ${S}/main2.c  ${D}${bindir}
     install -m 0755 ${S}/shared_hello1.h  ${D}${includedir}
     install -m 0755 ${S}/shared_hello.h  ${D}${includedir}
 
@@ -236,72 +207,4 @@ do_install_append () {
 # 4) calling inc the inc needs to be in the same recipe directory
     do_jack2
 }
-
-
-#FILES_${PN}-jhon = "/JOHN/"
-#FILES_${PN}-jack2 = "jack2"
-# METHOD 1 add directories/files to rootfs correct
-#FILES_${PN}-demo1 = "${bindir}/jack1 "
-#FILES_${PN}-demo = "/jack/demo/bin/"
-#FILES_${PN}-jack-systemD = "${systemd_unitdir}/system"
-
-#PACKAGES += "${PN}-jhon "
-#PACKAGES += "${PN}-demo1"
-#PACKAGES += "${PN}-demo"
-#PACKAGES += "${PN}-jack-systemD"
-#PACKAGES += "${PN}-jack2"
-
-#FILES_${PN} += "${FILES_${PN}-jack2} ${FILES_${PN}-demo1} ${FILES_${PN}-demo} ${FILES_${PN}-jack-systemD} ${FILES_${PN}-jhon}" 
-
-#PACKAGES += "FILES-${PN}-jhon "
-#FILES-${PN}-jhon += " /JOHN/"
-## WORKING......
-#FILES_${PN} += "/JOHN/"
-
-# METHOD 1 add directories/files to rootfs iWRONG
-# WRONG: PACKAGES += "${PN}-sample"
-# WRONG: FILES_${PN}-sample += "/jack/demo/bin/"
-
-
-# METHOD 2 use packagegroup to add directorees/files to rootfs
-# All these entries: ${PN}-jack-ssh ${PN}-jack-bin ${PN}-jack-bindir ${PN}-jack-libdir // defined in packagroup-XXXXX.bb
-# All these entries: jack1-jack-ssh jack1-jack-bin jack1-jack-bindir jack1-jack-libdir // defined in packagroup-XXXXX.bb
-PACKAGE_BEFORE_PN = "${PN}-jack-ssh ${PN}-jack-bin ${PN}-jack-bindir ${PN}-jack-libdir ${PN}-008 ${PN}-jack-hello-world ${PN}-jack-systemd"
-#FILES_${PN}-jack1 += "/jack/user/bin ${bindir} ${libdir} ${sysconfdir}/systemd /home/root/.ssh ${systemd_unitdir}/system"
-
-#
-# 3) ADD the /jack/user/bin/ and it contents into the PACKAGES
-FILES_${PN}-jack-bin += "/jack/user/bin"
-#FILES_${PN} += "/jack/user/bin"
-#
-# /usr/bin
-FILES_${PN}-jack-bindir += "${bindir}"
-#FILES_${PN} += "${bindir}"
-
-# /usr/lib
-FILES_${PN}-jack-libdir += "${libdir}"
-#FILES_${PN} += "${libdir}"
-
-# /etc
-#FILES_${PN}-jack-SYSTEMD1 += "${sysconfdir}/systemd"
-#FILES_${PN} += "${sysconfdir}/systemd"
-
-# /lib/systemd
-#FILES_${PN}-jack-systemD += "${systemd_unitdir}/system"
-#FILES_${PN} += "${systemd_unitdir}/system"
-
-FILES_${PN}-jack-ssh += "/home/root/.ssh"
-FILES_${PN}-008 += "/jack_008"
-#FILES_${PN} = "/home/root/.ssh"
-
-FILES_${PN}-jack-hello-world += "/home/root/"
-
-FILES_${PN}-jack-systemd += "${systemd_unitdir}/system"
-
-# 5) add conf.local.conf 
-# jack1 is the recipe name
-# IMAGE_INSTALL_append +="jack1"
-
-
-#FILES_${PN}-fip += "${datadir}/fip"
 

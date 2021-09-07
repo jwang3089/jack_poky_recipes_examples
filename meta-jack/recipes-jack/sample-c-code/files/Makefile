@@ -1,5 +1,5 @@
-obj = main.o
-target = hello-world
+obj = main2.o
+target = hello-world2
 
 INCLUDE=include
 

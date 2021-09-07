@@ -119,12 +119,27 @@ do_compile_append() {
 #    make clean
     make
     echo "JACK_BITBAKE=${JACK_BITBAKE}" >> LOG1
+    echo "DEFAULTTUNE=conf/machine/qemux86-64.conf:DEFAULTTUNE ?= \"core2-32\"" >> LOG1
+    echo "DEFAULTTUNE=${DEFAULTTUNE}" >> LOG1
+ echo "path=meta/conf/bitbake.conf" >> LOG1
+ echo "require conf/abi_version.conf" >> LOG1
+ echo "include conf/site.conf" >> LOG1
+ echo "include conf/auto.conf" >> LOG1
+ echo "include conf/local.conf" >> LOG1
+ echo "require conf/multiconfig/${BB_CURRENT_MC}.conf" >> LOG1
+ echo "include conf/machine/${MACHINE}.conf" >> LOG1
+ echo "include conf/machine-sdk/${SDKMACHINE}.conf" >> LOG1
+ echo "include conf/distro/${DISTRO}.conf" >> LOG1
+ echo "include conf/distro/defaultsetup.conf" >> LOG1
+ echo "include conf/documentation.conf" >> LOG1
+ echo "include conf/licenses.conf" >> LOG1
+ echo "require conf/sanity.conf" >> LOG1
+
 
 
 }
 
-do_clean_apped() {
-    echo "cleanup" >> LOG1
+do_clean_append() {
 }
 
 do_install_append () {

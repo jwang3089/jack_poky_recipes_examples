@@ -1,0 +1,9 @@
+systemctl -l status service-name
+
+systemctl start service-name
+
+systemctl stop service-name
+
+systemctl enable service-name
+
+systemctl disable service-name

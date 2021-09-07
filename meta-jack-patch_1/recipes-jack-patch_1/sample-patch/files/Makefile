@@ -1,4 +1,4 @@
-obj = main.o
+obj = main4.o
 target = main_patch_1 
 
 INCLUDE=include

@@ -44,7 +44,7 @@ S = "${WORKDIR}"
 #SRC_URI ="file://* \  NOT SUPPORTED IN THE NEW YOCTO
 #"
 
-SRC_URI ="file://main.c \
+SRC_URI ="file://main1.c \
 	  file://Makefile \
           "
 
@@ -163,7 +163,7 @@ do_install_append () {
 # 2) Copy a files into /jack/user/bin/ ROOTFS
 #    install -m 0755 ${S}/hello-world ${D}${bindir}
 #    install -m 0755 ${S}/hello-world ${D}/home/
-    install -m 0755 ${S}/main.c  ${D}${bindir}
+    install -m 0755 ${S}/main1.c  ${D}${bindir}
 
 }
 

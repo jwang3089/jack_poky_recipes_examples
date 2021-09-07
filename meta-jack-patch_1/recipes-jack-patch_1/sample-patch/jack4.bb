@@ -26,7 +26,7 @@ S = "${WORKDIR}"
 #SRC_URI ="file://* \  NOT SUPPORTED IN THE NEW YOCTO
 #"
 
-SRC_URI ="file://main.c \
+SRC_URI ="file://main4.c \
 	  file://Makefile \
           "
 
