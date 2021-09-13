@@ -1,0 +1,1 @@
+diff -Naur standard_moodle my_moodle > patch.txt
