@@ -38,7 +38,8 @@ USER="root"
 DEPENDS = "glibc openssl"
 #DEPENDS = "glibc"
 
-S = "${WORKDIR}"
+# Since it is a sub-modules by default it will create under git
+S = "${WORKDIR}/git"
 
 #SRC_URI ="file://* \  NOT SUPPORTED IN THE NEW YOCTO
 #"
@@ -130,7 +131,7 @@ do_compile_append() {
     echo "export:" >> LOG1
     echo "$(export)" >> LOG1
 #    make clean
-    make
+    ${WORKDIR}/make
 }
 
 do_compile_append() {
