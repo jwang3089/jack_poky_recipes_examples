@@ -42,7 +42,7 @@ fi
 unset THIS_SCRIPT
 
 ROOTDIR="`readlink -f $PWD`"
-JACK_SRC_DIR="$ROOTDIR/jack-src"
+JACK_SRC_DIR="$ROOTDIR/jack_src"
 export JACK_SRC_DIR
 echo "JACK_SRC_DIR $JACK_SRC_DIR" > LOG1
 export OEROOT
