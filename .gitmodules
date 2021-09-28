@@ -1,0 +1,3 @@
+[submodule "jack_src"]
+	path = jack_src
+	url = ./jack_src/
