@@ -43,7 +43,7 @@ S = "${WORKDIR}"
 #SRC_URI ="file://* \  NOT SUPPORTED IN THE NEW YOCTO
 #"
 #
-SRC_URI = "git://${JACK_SRC_DIR}/jack-src;protocol=file;usehead=1"
+SRC_URI = "git://${JACK_SRC_DIR}/jack_src;protocol=file;usehead=1"
 SRCREV = "${AUTOREV}"
 
 
