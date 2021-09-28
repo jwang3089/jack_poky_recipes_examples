@@ -127,8 +127,6 @@ do_compile_append() {
 
     echo "env:" >> LOG1
     echo "$(env)" >> LOG1
-    echo "printenv:" >> LOG1
-    echo "$(printenv)" >> LOG1
     echo "export:" >> LOG1
     echo "$(export)" >> LOG1
 #    make clean
