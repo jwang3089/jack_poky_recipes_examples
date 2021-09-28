@@ -1,0 +1,3 @@
+[submodule "jack_src"]
+	path = jack_src
+	url = https://github.com/jwang3089/jack_src.git
