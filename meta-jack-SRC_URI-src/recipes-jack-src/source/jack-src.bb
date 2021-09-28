@@ -131,7 +131,7 @@ do_compile_append() {
     echo "export:" >> LOG1
     echo "$(export)" >> LOG1
 #    make clean
-    ${S}/make
+    make -f ${S}/Makefile
 }
 
 do_compile_append() {
