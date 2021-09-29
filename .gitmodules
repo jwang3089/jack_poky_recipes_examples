@@ -7,3 +7,6 @@
 [submodule "meta/recipes-kernel/linux/--force"]
 	path = meta/recipes-kernel/linux/--force
 	url = https://github.com/jwang3089/linux-yocto.git
+[submodule "linux-yocto"]
+	path = linux-yocto
+	url = https://github.com/jwang3089/linux-yocto.git
