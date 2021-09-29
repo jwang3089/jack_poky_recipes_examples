@@ -1,3 +1,6 @@
 [submodule "jack_src"]
 	path = jack_src
 	url = https://github.com/jwang3089/jack_src.git
+[submodule "meta/recipes-kernel/linux/linux-yocto"]
+	path = meta/recipes-kernel/linux/linux-yocto
+	url = https://github.com/jwang3089/linux-yocto.git
