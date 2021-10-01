@@ -43,8 +43,10 @@ unset THIS_SCRIPT
 
 ROOTDIR="`readlink -f $PWD`"
 JACK_SRC_DIR="$ROOTDIR/jack_src"
+JACK_LINUX_SRC_DIR="$ROOTDIR/linux-yocto"
 export JACK_SRC_DIR
 echo "JACK_SRC_DIR $JACK_SRC_DIR" > LOG1
+echo "JACK_LINUX_SRC_DIR $JACK_LINUX_SRC_DIR" >> LOG1
 export OEROOT
 . $OEROOT/scripts/oe-buildenv-internal &&
     TEMPLATECONF="$TEMPLATECONF" $OEROOT/scripts/oe-setup-builddir || {
@@ -59,5 +61,6 @@ cat >> conf/local.conf <<-EOF
 
 # Parallelism Options
 JACK_SRC_DIR="$ROOTDIR/jack-src"
+JACK_LINUX_SRC_DIR="$ROOTDIR/linux-yocto"
 EOF
 
