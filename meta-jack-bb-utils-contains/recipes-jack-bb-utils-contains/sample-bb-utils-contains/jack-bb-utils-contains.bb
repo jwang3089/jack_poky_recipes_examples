@@ -38,7 +38,7 @@ SRC_URI ="file://main.c \
 #    make
 #}
 #do_compile() {
-do_compile_append() {
+do_configure_append() {
     echo "****************** JACK 1 *********************" > LOG1
     echo "0: CFLAGS_prepend = ${CFLAGS_prepend}" >> LOG1
     echo "0: INCLUDE = ${INCLUDE}" >> LOG1
@@ -108,20 +108,17 @@ do_compile_append() {
     echo "RREPLACES=${RREPLACES}" >> LOG1
     echo "PACKAGE_BEFORE_PN=${PACKAGE_BEFORE_PN}" >> LOG1
 
-    echo "env:" >> LOG1
-    echo "$(env)" >> LOG1
-    echo "printenv:" >> LOG1
-    echo "$(printenv)" >> LOG1
-    echo "export:" >> LOG1
-    echo "$(export)" >> LOG1
 #    make clean
-    make
 }
 
 do_compile_append() {
     echo "JACK_BITBAKE=${JACK_BITBAKE}" >> LOG1
+    make
+}
 
-
+do_install_append() {
+        install -d ${D}${bindir}
+	install -m 0755 ${S}/main_jack_bb_utils_contains  ${D}${bindir}
 }
 
 do_clean_apped() {

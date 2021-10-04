@@ -21,7 +21,7 @@ SOMEFLAG = "a b c"
 
 # below will run jack-bb-utils-contains recipe
 RDEPENDS_${PN} = " \
-    ${@bb.utils.contains('BB_UTILS_CONTAINS_FEATURES', 'jack-options', 'jack-bb-utils-contains', '', d) } \
+    ${@bb.utils.contains('BB_UTILS_CONTAINS_FEATURES', 'jack-options', 'jack-bb-utils-contains', 'jack-bb-utils-contains', d) } \
 "
 
 # ENV bitbake -e jack-utils-contains | grep NEWVALUE1
