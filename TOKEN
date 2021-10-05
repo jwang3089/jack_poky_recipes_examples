@@ -1,6 +1,14 @@
 ## https://github.com/settings/apps 
 ## https://github.com/settings/tokens
-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
-git push https://<GITHUB_ACCESS_TOKEN>@github.com/<GITHUB_USERNAME>/<REPOSITORY_NAME>.git
+jackbwang@ubu-91492:/media/jackbwang/SAMPLE/YOCTO/poky_jack_recipes_examples$ git push
+Username for 'https://github.com': jwang3089
+Password for 'https://jwang3089@github.com': 
+Counting objects: 2, done.
+Delta compression using up to 8 threads.
+Compressing objects: 100% (2/2), done.
+Writing objects: 100% (2/2), 299 bytes | 299.00 KiB/s, done.
+Total 2 (delta 1), reused 0 (delta 0)
+remote: Resolving deltas: 100% (1/1), completed with 1 local object.
+To https://github.com/jwang3089/jack_poky_recipes_examples.git
+   00e8424..401dc6d  master -> master
 
-git push https://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@github.com/jwang3089/poky_jack_recipes_examples.git
